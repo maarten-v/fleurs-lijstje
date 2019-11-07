@@ -8,17 +8,23 @@
                             <a @click="signOut" href="#">Uitloggen</a>
                             <img :src="this.$store.getters.getUser.photoURL" alt="avatar" id="avatar">
                         </template>
-                    </div>
+                    </div>set
                     <div class="title">Fleurs lijstje</div>
                     <template v-if="!this.$store.getters.getUser">
                         <a @click="googleLogin" href="#">Log in met Google</a>
                     </template>
                     <div v-if="errors !== ''" id="errors">{{ errors }}</div>
+                    {{ this.$store.getters.getItems }}
                     <div v-if="this.$store.getters.getItems && this.$store.getters.getItems.length > 0 && this.$store.getters.getUser">
-                        <div v-for="item in this.$store.getters.getItems" :key="item.id">
-                            <input type="checkbox" :id="item.id" v-model="item.checked" :value="currentDay" @click="toggleDate(item.id, $event)" />
-                            <label :for="item.id">{{ item.title }}</label>
-                            <hr />
+                        ssss
+                        <div v-for="category in this.$store.getters.getItems" :key="category.id">
+                            sdf {{ category.id }}
+                            <h2>{{ category.title }}</h2>
+                            <div v-for="item in category.items" :key="item.id">
+                                <input type="checkbox" :id="item.id" v-model="item.checked" :value="currentDay" @click="toggleDate(item.id, $event)" />
+                                <label :for="item.id">{{ item.title }}</label>
+                                <hr />
+                            </div>
                         </div>
                     </div>
                 </div>
