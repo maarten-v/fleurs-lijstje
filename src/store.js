@@ -8,11 +8,14 @@ export default new Vuex.Store({
     state: {
         items: null,
         user: null,
+        categories: [],
     },
     getters: {
         getItems: state => {
-            console.log('getitems function ',state.items);
             return state.items;
+        },
+        getCategories: state => {
+            return state.categories;
         },
         getUser: state => {
             return state.user;
@@ -20,10 +23,11 @@ export default new Vuex.Store({
     },
     mutations: {
         setItems: state => {
+
             let currentDay = new Date().toISOString().slice(0, 10);
 
             db.collection('categories').orderBy('order').get().then(function(categoriesFromDb){
-                let categories = [];
+                let categories = {};
                 categoriesFromDb.forEach((category) => {
                     let categoryContent = {};
                     categoryContent.title = category.data().title;
@@ -42,13 +46,18 @@ export default new Vuex.Store({
                                 lastCategory = doc.data().category;
                             });
                             categories[lastCategory] = {...categoryContent};
-                            state.items = Array.from(categories);
-                            console.log('after setting state state is ', state.items);
-                            console.log('loading finished, put it in state.items for '+  category.data().title, categoryContent);
-
-
+                            state.items = {...categories};
                         });
                 });
+            });
+        },
+        setCategories: state => {
+            db.collection('categories').orderBy('order').get().then(function(categoriesFromDb){
+                let categories = [];
+                categoriesFromDb.forEach((category) => {
+                    categories.push(category.data());
+                });
+                state.categories = categories;
             });
         },
         setUser(state, user) {
@@ -58,6 +67,9 @@ export default new Vuex.Store({
     actions: {
         setItems: context => {
             context.commit('setItems');
+        },
+        setCategories: context => {
+            context.commit('setCategories');
         },
     }
 });
