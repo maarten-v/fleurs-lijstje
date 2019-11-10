@@ -4,6 +4,7 @@ import App from './App.vue'
 Vue.config.productionTip = false
 
 import store from './store.js'
+import './registerServiceWorker'
 
 const firebase = require('firebase/app');
 require('firebase/firestore');
@@ -31,7 +32,6 @@ new Vue({
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.$store.commit('setUser', user);
-        this.$store.dispatch('setCategories');
         this.$store.dispatch('setItems');
       } else {
         this.$store.commit('setUser', null);

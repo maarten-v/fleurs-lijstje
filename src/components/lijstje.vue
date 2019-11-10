@@ -14,7 +14,7 @@
                         <a @click="googleLogin" href="#">Log in met Google</a>
                     </template>
                     <div v-if="errors !== ''" id="errors">{{ errors }}</div>
-                    <div v-if="this.$store.getters.getCategories && this.$store.getters.getCategories.length > 0 && this.$store.getters.getUser">
+                    <div v-if="this.$store.getters.getItems && this.$store.getters.getUser">
                         <div v-for="category in this.$store.getters.getItems" :key="category.id">
                             <h2>{{ category.title }}</h2>
                             <div v-for="item in category.items" :key="item.id">
