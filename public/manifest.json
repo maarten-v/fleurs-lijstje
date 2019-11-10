@@ -1,0 +1,17 @@
+{
+  "name": "Fleur's lijstje",
+  "short_name": "Fleur's lijstje",
+  "icons": [
+    {
+      "src": "todoicon.png",
+      "type": "image/png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "todoicon192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "display": "standalone"
+}
