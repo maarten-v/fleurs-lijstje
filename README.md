@@ -1,4 +1,10 @@
-# lijstje
+# Fleur's lijstje
+
+A daily todo app / site which is synced over all devices with the app (or visitors on the website).
+The lists resets itself everyday.
+Ideal for kids that forget their daily tasks.
+
+It connects to a Firestore online database.
 
 ## Project setup
 ```

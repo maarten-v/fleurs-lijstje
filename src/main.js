@@ -10,6 +10,9 @@ const firebase = require('firebase/app');
 require('firebase/firestore');
 require('firebase/auth');
 
+const firebaseui = require('firebaseui');
+export {firebaseui};
+
 const config = {
   apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
   authDomain: process.env.VUE_APP_AUTH_DOMAIN,

@@ -10,9 +10,9 @@
                         </template>
                     </div>
                     <div class="title">Fleurs lijstje</div>
-                    <template v-if="!this.$store.getters.getUser">
-                        <a @click="googleLogin" href="#">Log in met Google</a>
-                    </template>
+                    <div v-show=!this.$store.getters.getUser>
+                        <div id="firebaseui-auth-container"></div>
+                    </div>
                     <div v-if="errors !== ''" id="errors">{{ errors }}</div>
                     <div v-if="this.$store.getters.getItems && this.$store.getters.getUser">
                         <div v-for="category in this.$store.getters.getItems" :key="category.id">
@@ -31,11 +31,22 @@
 </template>
 
 <script>
-    import {db, firebase} from '../main.js'
+    import {db, firebase, firebaseui} from '../main.js'
 
     export default {
         mounted() {
             // console.log('Component mounted.')
+            let uiConfig = {
+                signInOptions: [
+                    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                ],
+                callbacks: {
+                    // Avoid redirects after sign-in
+                    signInSuccessWithAuthResult: () => false
+                }
+            };
+            let ui = new firebaseui.auth.AuthUI(firebase.auth());
+            ui.start('#firebaseui-auth-container', uiConfig);
         },
         data: function () {
             return {
@@ -72,10 +83,6 @@
                         'dates': firebase.firestore.FieldValue.arrayRemove(new Date().toISOString().slice(0, 10))
                     });
                 }
-            },
-            googleLogin: function() {
-                const provider = new firebase.auth.GoogleAuthProvider();
-                firebase.auth().signInWithPopup(provider).catch(error => console.log(error));
             },
             signOut: function() {
                 firebase.auth().signOut().catch(error => console.log(error))
