@@ -1,10 +1,9 @@
 import Vue from 'vue'
 import App from './App.vue'
-
-Vue.config.productionTip = false
-
 import store from './store.js'
 import './registerServiceWorker'
+
+Vue.config.productionTip = false
 
 const firebase = require('firebase/app');
 require('firebase/firestore');
