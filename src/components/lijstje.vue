@@ -57,7 +57,6 @@
         },
         methods: {
             addChecklistItem: function() {
-                // console.log('voeg toe');
                 if (this.checklistItem !== '') {
                     db.collection('items').add({
                         title: this.checklistItem,
